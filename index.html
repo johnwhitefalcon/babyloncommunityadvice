@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=5.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+ 
+ <script>
+     import { Engine } from “@babylonjs/core/Engines/engine”;
+import { Scene } from “@babylonjs/core/scene”;
+import { ArcRotateCamera } from “@babylonjs/core/Cameras/arcRotateCamera”;
+import { Vector3 } from “@babylonjs/core/Maths/math.vector”;
+import { HemisphericLight } from “@babylonjs/core/Lights/hemisphericLight”;
+import { CreateSceneClass } from “…/createScene”;
+import { SceneLoader } from “@babylonjs/core/Loading/sceneLoader”;
+import { CubeTexture } from “@babylonjs/core/Materials/Textures/cubeTexture”;
+import { EnvironmentHelper } from “@babylonjs/core/Helpers/environmentHelper”;
+import “@babylonjs/core/Loading/loadingScreen”;
+import “@babylonjs/loaders/glTF”;
+import “@babylonjs/core/Materials/standardMaterial”;
+import “@babylonjs/core/Materials/Textures/Loaders/envTextureLoader”;
+
+ </script>
+
+ 
+</head>
+<body>
+    
+    <canvas id="renderCanvas" touch-action="none"></canvas> 
+
+<script>
+   
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true); 
+    
+    
+    const createScene = function () {
+
+        const scene = new BABYLON.Scene(engine);  
+
+        const camera = new BABYLON.ArcRotateCamera("camera", 1,2,20, new BABYLON.Vector3(0, 0, 0));
+        camera.attachControl(canvas, true);
+        const light1 = new BABYLON.PointLight("light1", new BABYLON.Vector3(1, 1, 0));
+        light1.diffuse = new BABYLON.Color3(1,0,2)
+        const light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(1, 1, 1));
+        light2.diffuse = new BABYLON.Color3(3,2,2)
+
+        //This is the section i am having difficulty with. I have tried various combinations of the below.
+     
+     //   const envTex = BABYLON.CubeTexture("https://universal-assets.sfo3.digitaloceanspaces.com/GameSandbox/xmas_bg.env", scene);
+     //   scene.environmentTexture = envTex;
+     //   scene.createDefaultSkybox(envTex, true);
+
+        const ball =  BABYLON.MeshBuilder.CreateSphere("Ball", {diameterX: 5, diameterY: 4, diameterZ: 6})
+        ball.position.x = +5;
+       
+        const plane =  BABYLON.MeshBuilder.CreatePlane("Plane", {height: 10, width: 5})
+        plane.rotation = new BABYLON.Vector3(1, 1, 2);
+
+
+        
+
+        return scene;
+    };
+
+    const scene = createScene(); 
+
+    
+    engine.runRenderLoop(function () {
+            scene.render();
+           
+    });
+
+    
+    window.addEventListener("resize", function () {
+            engine.resize();
+    });
+</script>
+
+
+
+
+</body>
+</html>
