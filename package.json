@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "serve": "webpack serve"
   },
   "dependencies": {
     "@babylonjs/materials": "^4.2.1",
@@ -23,6 +23,9 @@
   },
   "devDependencies": {
     "@babylonjs/core": "^4.2.1",
-    "@babylonjs/loaders": "^4.2.1"
+    "@babylonjs/loaders": "^4.2.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
   }
 }
